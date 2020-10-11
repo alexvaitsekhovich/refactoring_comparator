@@ -1,0 +1,8 @@
+composer.*
+/vendor/
+testdox.*
+/phpunit.phar
+/reports/
+.phpunit*
+junit.xml
+*.txt
