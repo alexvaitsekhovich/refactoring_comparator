@@ -23,7 +23,7 @@ class ProcessRunner
 		$this->dataSource = $dataToolsContainer->getDataSource();
 		$this->dataFixture = $dataToolsContainer->getDataFixture();
 		$this->config = $config;
-		$this->script = $script;
+		$this->script = __DIR__ . '/' . $script;
 	}
 
 	public function process()

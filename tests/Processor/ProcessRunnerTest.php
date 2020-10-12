@@ -18,7 +18,7 @@ class ProcessRunnerTest extends TestCase
 	private $mockDataToolsContainer;
 	private $mockConfig;
 	private $mockDataFixture;
-	private $script = 'tests/test_data/testScript.php';
+	private $script = '../../tests/test_data/testScript.php';
 
 	protected function setUp(): void
 	{

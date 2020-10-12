@@ -24,7 +24,7 @@ class ScriptRunner
 
 		$this->shellScript = escapeshellarg($script);
 
-		if (!empty($config->scriptCommandLineArgs)) {
+		if (is_array($config->scriptCommandLineArgs) && count($config->scriptCommandLineArgs) > 0) {
 			foreach ($config->scriptCommandLineArgs as $argument) {
 				$this->shellScript .= " " . escapeshellarg($argument);
 			}
