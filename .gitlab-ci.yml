@@ -22,11 +22,15 @@ unit tests:
 functional testing match:
   stage: functest
   image: php:7.4
+
   services:
-    - mysql
+    - name: mysql:8
+      alias: mysql
+
   before_script:
     - apt update -qy && apt-get install -qqy --no-install-recommends default-mysql-client
     - mysql --user=$MYSQL_USER --password=$MYSQL_ROOT_PASSWORD --host=$MYSQL_HOST --execute="SHOW DATABASES;"
+
   script:
     - echo 1;
 
