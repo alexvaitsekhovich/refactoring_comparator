@@ -5,10 +5,11 @@ stages:
 
 before_script:
   - apt-get update
-  - bash ci/docker_install.sh > /dev/null
+  - curl --location --output /usr/local/bin/phpunit https://phar.phpunit.de/phpunit.phar
+  - chmod +x /usr/local/bin/phpunit
+  - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+  - composer install
 
 test:
   script:
-    - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-    - composer install
     - phpunit --configuration phpunit.xml
