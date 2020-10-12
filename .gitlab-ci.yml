@@ -38,5 +38,6 @@ functional testing match:
     - sleep 2
     - ls -al
     - cat scriptResult.log
-
+    - \[ $(grep -o "OK" scriptResult.log | wc -l | tr -d ' ') -eq 1 \]
+    - \[ $(grep -o "Mismatch" scriptResult.log | wc -l | tr -d ' ') -eq 0 \]
 
