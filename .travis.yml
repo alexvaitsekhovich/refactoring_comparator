@@ -1,0 +1,13 @@
+language: php
+
+php:
+  - 7.4
+
+
+sudo: false
+
+before_script:
+  - curl -sSfL -o ~/.phpenv/versions/hhvm/bin/phpunit https://phar.phpunit.de/phpunit-9.4.1.phar
+  - composer install
+
+script: phpunit
