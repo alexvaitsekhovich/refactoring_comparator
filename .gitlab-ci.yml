@@ -1,16 +1,35 @@
-image: php:7.4
+variables:
+  MYSQL_DATABASE: "db_name"
+  MYSQL_ROOT_PASSWORD: "dbpass"
+  MYSQL_USER: "username"
+  MYSQL_HOST: mysql
 
 stages:
+  - functest
   - test
 
-before_script:
-  - apt-get update
-  - bash ci/docker_install.sh > /dev/null
-  - curl --location --output /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-9.4.1.phar
-  - chmod +x /usr/local/bin/phpunit
-  - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-  - composer install
-
-test:
+unit tests:
+  stage: test
+  image: php:7.4
   script:
+    - apt-get update
+    - bash ci/docker_install.sh > /dev/null
+    - curl --location --output /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-9.4.1.phar
+    - chmod +x /usr/local/bin/phpunit
+    - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+    - composer install
     - phpunit --configuration phpunit.xml
+
+functional testing match:
+  stage: functest
+  image: php:7.4
+  services:
+    - mysql:8
+  script:
+    - apt-get update && apt-get install -y git curl libmcrypt-dev default-mysql-client
+    - mysql --version
+    - sleep 20
+    - echo "SHOW tables;"| mysql -u root -p"$MYSQL_ROOT_PASSWORD" -h "${MYSQL_HOST}" "${MYSQL_DATABASE}"
+    - echo "DB host is "${DB_HOST}""
+
+
