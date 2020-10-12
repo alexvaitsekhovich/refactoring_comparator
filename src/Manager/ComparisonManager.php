@@ -9,6 +9,7 @@ use RRComparator\Processor\ProcessRunner;
 
 /**
  * Instantiate the configurations, create and start process runners, get the mismatches
+ * @codeCoverageIgnore
  */
 class ComparisonManager
 {
@@ -44,9 +45,9 @@ class ComparisonManager
 		$mismatchResults = $dataComparator->getMismatchResult($this->getSubConfig('app', 'comparison')->limitDifferencesPerTable);
 
 		if (count($mismatchResults) == 0) {
-			echo "OK";
+			echo "OK\n";
 		} else {
-			echo "Mismatch:";
+			echo "Mismatch\n";
 			print_r($mismatchResults);
 		}
 	}
