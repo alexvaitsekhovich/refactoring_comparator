@@ -1,7 +1,7 @@
 image: php:7.4
 
 stages:
-  - unit-tests
+  - test
 
 before_script:
   - apt-get update
@@ -11,6 +11,6 @@ before_script:
   - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
   - composer install
 
-unit-tests:
+test:
   script:
     - phpunit --configuration phpunit.xml
