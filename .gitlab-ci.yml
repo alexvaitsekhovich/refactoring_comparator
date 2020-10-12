@@ -56,6 +56,8 @@ functional testing mismatch:
     - php starter.php > scriptResult.log
     - sleep 2
     - cat scriptResult.log
+    - mysql --user=root --password=$MYSQL_ROOT_PASSWORD --host=$MYSQL_HOST "legacy_db" --execute="SHOW DATABASES;"
+    - echo "SELECT * from orders;" | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "legacy_db"
     - \[ $(grep -o "OK" scriptResult.log | wc -l | tr -d ' ') -eq 0 \]
     - \[ $(grep -o "Mismatch" scriptResult.log | wc -l | tr -d ' ') -eq 1 \]
 
