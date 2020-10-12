@@ -5,4 +5,5 @@ before_script:
 
 test:app:
   script:
+    - composer install
     - phpunit --configuration phpunit.xml
