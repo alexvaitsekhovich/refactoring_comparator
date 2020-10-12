@@ -51,4 +51,4 @@ legacy and refactored scripts are defined here
 
 
 <p align="center">
-<img src="https://github.com/alexvaitsekhovich/images/blob/main/rcomparator.png" width="90%" height="90%" alt="Speed graph">
+<img src="https://github.com/alexvaitsekhovich/images/blob/main/rcomparator.png" width="90%" height="90%" alt="Refactoring comparator">
