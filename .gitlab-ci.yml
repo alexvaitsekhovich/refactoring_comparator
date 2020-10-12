@@ -36,6 +36,7 @@ functional testing match:
 
   script:
     - cd src
+    - php starter.php
     - php starter.php > scriptResult.log
     - sleep 5
     - cat scriptResult.log
