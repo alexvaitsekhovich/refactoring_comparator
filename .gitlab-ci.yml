@@ -51,6 +51,7 @@ functional testing mismatch:
     - docker-php-ext-install mysqli && docker-php-ext-enable mysqli
   script:
     - sed -i 's/\+= $totalCost/\+= $totalCost + 2/g' functional_testing/refactored_script/invoice.php
+    - cat functional_testing/refactored_script/invoice.php
     - cd src
     - php starter.php > scriptResult.log
     - sleep 2
