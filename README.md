@@ -32,10 +32,23 @@ scriptArgs.scriptCommandLineArgs - command line arguments for both applications
 comparison.limitDifferencesPerTable - if mismatch will be found, show only this amount of differences per table
 db.excludedColumns - columns that should be excluded form comparison, comma-separated list of columns for every table
 datasource.dataSourceImpl - implementation of the datasource reader, getting data form the database
-datasource.dataSourceConf - configuration of the dataSourceImpl class
+datasource.dataSourceConf - configuration of the dataSourceImpl class, fixture data can be defined there
 datasource.dataFixtureImpl - implementation of the fixture interface, populating the database
+```
+
+_config/db.ini_
+
+```
+legacydb - configuration for the legacy database
+refactoreddb - configuration for the new database
+```
+
+_config/scripts.ini_
+
+```
+legacy and refactored scripts are defined here
 ```
 
 
 <p align="center">
-<img src="https://github.com/alexvaitsekhovich/images/blob/main/rrcomparator.png" width="90%" height="90%" alt="Speed graph">
+<img src="https://github.com/alexvaitsekhovich/images/blob/main/rcomparator.png" width="90%" height="90%" alt="Speed graph">
