@@ -29,7 +29,6 @@ functional testing match:
   before_script:
     - apt update -qy && apt-get install -qqy --no-install-recommends default-mysql-client
     - mysql --user=$MYSQL_USER --password=$MYSQL_ROOT_PASSWORD --host=$MYSQL_HOST < functional_testing/db_setup/db_init.sql
-    - mysql --user=$MYSQL_USER --password=$MYSQL_ROOT_PASSWORD --host=$MYSQL_HOST --execute="SHOW DATABASES;"
     - docker-php-ext-install mysqli && docker-php-ext-enable mysqli
   script:
     - cd src
@@ -49,7 +48,6 @@ functional testing mismatch:
   before_script:
     - apt update -qy && apt-get install -qqy --no-install-recommends default-mysql-client
     - mysql --user=$MYSQL_USER --password=$MYSQL_ROOT_PASSWORD --host=$MYSQL_HOST < functional_testing/db_setup/db_init.sql
-    - mysql --user=$MYSQL_USER --password=$MYSQL_ROOT_PASSWORD --host=$MYSQL_HOST --execute="SHOW DATABASES;"
     - docker-php-ext-install mysqli && docker-php-ext-enable mysqli
   script:
     - sed -i 's/\+= $totalCost/\+= $totalCost + 2/g' functional_testing/refactored_script/invoice.php
