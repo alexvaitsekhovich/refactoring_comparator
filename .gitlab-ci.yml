@@ -24,7 +24,7 @@ functional testing match:
   image: php:7.4
 
   services:
-    - name: mysql:8
+    - name: mysql:5.7
       alias: mysql
 
   before_script:
