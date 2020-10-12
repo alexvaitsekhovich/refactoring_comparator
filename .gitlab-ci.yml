@@ -1,7 +1,6 @@
 variables:
-  MYSQL_DATABASE: "db_name"
-  MYSQL_ROOT_PASSWORD: "dbpass"
-  MYSQL_USER: "username"
+  MYSQL_ROOT_PASSWORD: "root_pass"
+  MYSQL_USER: "root"
   MYSQL_HOST: mysql
 
 stages:
@@ -24,11 +23,17 @@ functional testing match:
   stage: functest
   image: php:7.4
   services:
-    - mysql:8
+    - mysql
+  before_script:
+    - apt update -qy && apt-get install -qqy --no-install-recommends default-mysql-client
+    - mysql --user=$MYSQL_USER --password=$MYSQL_ROOT_PASSWORD --host=$MYSQL_HOST --execute="SHOW DATABASES;"
   script:
-    - mysql --version
-    - sleep 20
-    - echo "SHOW tables;"| mysql -u root -p"$MYSQL_ROOT_PASSWORD" -h "${MYSQL_HOST}" "${MYSQL_DATABASE}"
-    - echo "DB host is "${DB_HOST}""
+    - echo 1;
+
+
+#    - mysql --version
+#    - sleep 20
+#    - echo "SHOW tables;"| mysql -u root -p"$MYSQL_ROOT_PASSWORD" -h "${MYSQL_HOST}"
+#    - echo "DB host is "${DB_HOST}""
 
 
