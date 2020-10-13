@@ -39,7 +39,7 @@ class ConfigTest extends TestCase
 		$multParams = $this->config1->multParams;
 		$expectedMultParams = ['!', 'A', '1'];
 
-		$this->assertSame(sort($expectedMultParams), sort($multParams));
+		$this->assertEqualsCanonicalizing($expectedMultParams, $multParams);
 	}
 
 	public function testGetPropertyFailure()
@@ -69,7 +69,7 @@ class ConfigTest extends TestCase
 	{
 		$configSub = $this->config2->getSubConfig($subconfig);
 		$multParams = $configSub->multipleParams;
-		$this->assertSame(sort($expected), sort($multParams));
+		$this->assertEqualsCanonicalizing($expected, $multParams);
 	}
 
 	public function subconfigDataProvider()
