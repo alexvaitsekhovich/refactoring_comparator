@@ -19,7 +19,7 @@ unit tests:
     - phpunit --configuration phpunit.xml --testdox --colors=always
 
 
-functional testing:
+functional testing match:
   stage: test
   image: php:7.4
   services:
@@ -37,3 +37,25 @@ functional testing:
     - cat scriptResult.log
     - \[ $(grep -o "OK" scriptResult.log | wc -l | tr -d ' ') -eq 1 \]
     - \[ $(grep -o "Mismatch" scriptResult.log | wc -l | tr -d ' ') -eq 0 \]
+
+
+functional testing mismatch:
+  stage: test
+  image: php:7.4
+  services:
+    - name: mysql:5.7
+      alias: mysql
+  before_script:
+    - apt update -qy && apt-get install -qqy --no-install-recommends default-mysql-client
+    - mysql --user=$MYSQL_USER --password=$MYSQL_ROOT_PASSWORD --host=$MYSQL_HOST < functional_testing/db_setup/db_init.sql
+    - docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+  script:
+    - sed -i 's/\+= $totalCost/\+= $totalCost + 2/g' functional_testing/refactored_script/invoice.php
+    - cat functional_testing/refactored_script/invoice.php
+    - cd src
+    - export CONSOLE_LOG=1
+    - php starter.php > scriptResult.log
+    - sleep 2
+    - cat scriptResult.log
+    - \[ $(grep -o "OK" scriptResult.log | wc -l | tr -d ' ') -eq 0 \]
+    - \[ $(grep -o "Mismatch" scriptResult.log | wc -l | tr -d ' ') -eq 1 \]
