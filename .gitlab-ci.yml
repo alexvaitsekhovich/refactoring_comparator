@@ -4,11 +4,11 @@ variables:
   MYSQL_HOST: mysql
 
 stages:
-  - unit-test
-  - functional-tests
+  - unit
+  - functional
 
 unit tests:
-  stage: unit-test
+  stage: unit
   image: php:7.4
   script:
     - apt-get update
@@ -21,7 +21,7 @@ unit tests:
 
 
 functional testing match:
-  stage: functional-test
+  stage: functional
   image: php:7.4
   services:
     - name: mysql:5.7
@@ -41,7 +41,7 @@ functional testing match:
 
 
 functional testing mismatch:
-  stage: functional-test
+  stage: functional
   image: php:7.4
   services:
     - name: mysql:5.7
