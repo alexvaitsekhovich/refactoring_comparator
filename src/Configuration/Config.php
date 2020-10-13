@@ -23,7 +23,7 @@ class Config
 			throw new InvalidConfigurationException("Config file not found: {$configFile}");
 		}
 
-		ConsoleLogger::log("Creating config from file '{$configFile}''");
+		ConsoleLogger::log("Config: creating config from file '{$configFile}''");
 
 		$config = new Config();
 		$config->configData = parse_ini_file($configFile, true);
@@ -34,7 +34,7 @@ class Config
 	{
 		$subConfig = new Config();
 
-		ConsoleLogger::log("Getting subconfig '{$section}'" );
+		ConsoleLogger::log("Config: getting subconfig '{$section}'" );
 
 		try {
 			$subConfig->configData = $this->$section;

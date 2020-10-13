@@ -8,6 +8,8 @@ class ConsoleLogger
 {
 	public static function log(string $message): void
 	{
-		//echo $message . "\n";
+		if (!empty($_SERVER['CONSOLE_LOG'])) {
+			echo $message . "\n";
+		}
 	}
 }

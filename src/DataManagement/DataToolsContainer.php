@@ -7,6 +7,7 @@ use Error;
 use Exception;
 use RRComparator\Configuration\Config;
 use RRComparator\Exception\InvalidConfigurationException;
+use RRComparator\Logger\ConsoleLogger;
 
 class DataToolsContainer
 {
@@ -19,6 +20,9 @@ class DataToolsContainer
 		$dataFixtureClass = $dataSourceConfig->dataFixtureImpl;
 
 		$fixturesConfig = Config::init($dataSourceConfig->dataSourceConf);
+
+		ConsoleLogger::log("DataToolsContainer: creating data connection from class '{$dataSourceClass}'");
+		ConsoleLogger::log("DataToolsContainer: creating data fixture from class '{$dataFixtureClass}'");
 
 		try {
 			$this->dataSource = new $dataSourceClass($dbConfig);

@@ -40,7 +40,7 @@ class DataToolsContainerTest extends TestCase
 	{
 		$this->expectError(InvalidConfigurationException::class);
 		$this->dataSourceConfig->dataSourceConf = 'badConf.ini';
-		new DataToolsContainer($this->dataSourceConfig, $this->dataSourceBadConf);
+		new DataToolsContainer($this->dataSourceConfig, $this->dbConfig);
 	}
 
 }

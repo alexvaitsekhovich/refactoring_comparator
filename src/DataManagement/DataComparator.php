@@ -27,7 +27,7 @@ class DataComparator
 	{
 		$mismatchResult = [];
 
-		ConsoleLogger::log(sprintf("Comparing data with data count %d vs %d",
+		ConsoleLogger::log(sprintf("DataComparator: comparing data with data count %d vs %d",
 			count($this->legacyData), count($this->refactoredData)));
 
 		if (count($this->legacyData) != count($this->refactoredData)) {
@@ -36,7 +36,7 @@ class DataComparator
 		}
 
 		foreach ($this->legacyData as $table => $legacyRows) {
-			ConsoleLogger::log("Comparing rows of table '{$table}'");
+			ConsoleLogger::log("DataComparator: comparing rows of table '{$table}'");
 
 			$refactoredRows = $this->refactoredData[$table];
 
@@ -46,7 +46,8 @@ class DataComparator
 			}
 
 			if ($legacyRows !== $refactoredRows) {
-				ConsoleLogger::log("Found mismatch in table '{$table}'");
+				ConsoleLogger::log("DataComparator: found mismatch in table '{$table}'");
+
 				if ($limit == 0) {
 					$mismatchResult[$table] = [
 						'expected' => $legacyRows,

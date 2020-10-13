@@ -4,6 +4,7 @@ namespace RRComparator\Processor;
 
 use RRComparator\DataManagement\DataFixture;
 use RRComparator\Exception\EmptyResultException;
+use RRComparator\Logger\ConsoleLogger;
 
 /**
  * Trigger data fixtures, run the script and retrieve the data
@@ -25,6 +26,8 @@ class ProcessRunner
 
 	public function process()
 	{
+		ConsoleLogger::log("ProcessRunner: processing");
+
 		$this->dataFixture->populateData();
 
 		$this->scriptRunner->run();
@@ -36,6 +39,8 @@ class ProcessRunner
 
 	public function getResultingData(): array
 	{
+		ConsoleLogger::log("ProcessRunner: getting result data");
+
 		if (empty($this->resultData)) {
 			throw new EmptyResultException("No data was retrieved after executing the script");
 		}
