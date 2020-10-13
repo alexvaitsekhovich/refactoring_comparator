@@ -31,7 +31,7 @@ functional testing:
     - docker-php-ext-install mysqli && docker-php-ext-enable mysqli
   script:
     - cd src
-    - export CONSOLE_LOG='true'
+    - export CONSOLE_LOG=1
     - php starter.php > scriptResult.log
     - sleep 2
     - cat scriptResult.log
