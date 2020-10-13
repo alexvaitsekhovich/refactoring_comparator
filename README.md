@@ -15,7 +15,7 @@ Obviously we must refactor the code or write a new application. But how can we b
 
 This simple concept can help us on our way to the new better application:
 1. Create two identical databases - for legacy code and for the refactored application
-2. Populate the databases with same data
+2. Populate the databases with the same data
 3. Run both applications with identical arguments
 4. Compare the data in both databases, ignoring some irrelevant columns, like creation date.
 
@@ -49,6 +49,11 @@ _config/scripts.ini_
 legacy and refactored scripts are defined here
 ```
 
+Execute 
+
+```
+php starter.php
+```
 
 <p align="center">
 <img src="https://github.com/alexvaitsekhovich/images/blob/main/rcomparator.png" width="90%" height="90%" alt="Refactoring comparator">
