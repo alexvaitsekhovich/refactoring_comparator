@@ -29,7 +29,9 @@ class DataSourceArray extends DataSource
 		return $this->data[$tableName];
 	}
 
+	// @codeCoverageIgnoreStart
 	public function executeRawQuery(string $query): void
 	{
 	}
+	// @codeCoverageIgnoreEnd
 }

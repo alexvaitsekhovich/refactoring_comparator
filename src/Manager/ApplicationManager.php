@@ -55,9 +55,9 @@ class ApplicationManager
 		$mismatchResults = $dataComparator->getMismatchResult($this->diffLimit);
 
 		if (count($mismatchResults) == 0) {
-			echo "OK\n";
+			echo "Result - OK\n";
 		} else {
-			echo "Mismatch\n";
+			echo "Result - Mismatch\n";
 			print_r($mismatchResults);
 		}
 	}

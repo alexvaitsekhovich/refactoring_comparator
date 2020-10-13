@@ -36,8 +36,8 @@ functional testing match:
     - php starter.php > scriptResult.log
     - sleep 2
     - cat scriptResult.log
-    - \[ $(grep -o "OK" scriptResult.log | wc -l | tr -d ' ') -eq 1 \]
-    - \[ $(grep -o "Mismatch" scriptResult.log | wc -l | tr -d ' ') -eq 0 \]
+    - \[ $(grep -o "Result - OK" scriptResult.log | wc -l | tr -d ' ') -eq 1 \]
+    - \[ $(grep -o "Result - Mismatch" scriptResult.log | wc -l | tr -d ' ') -eq 0 \]
 
 
 functional testing mismatch:
@@ -58,5 +58,5 @@ functional testing mismatch:
     - php starter.php > scriptResult.log
     - sleep 2
     - cat scriptResult.log
-    - \[ $(grep -o "OK" scriptResult.log | wc -l | tr -d ' ') -eq 0 \]
-    - \[ $(grep -o "Mismatch" scriptResult.log | wc -l | tr -d ' ') -eq 1 \]
+    - \[ $(grep -o "Result - OK" scriptResult.log | wc -l | tr -d ' ') -eq 0 \]
+    - \[ $(grep -o "Result - Mismatch" scriptResult.log | wc -l | tr -d ' ') -eq 1 \]
