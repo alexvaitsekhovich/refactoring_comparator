@@ -18,14 +18,6 @@ unit tests:
     - composer install
     - phpunit --configuration phpunit.xml --testdox --colors=always
 
-tmp:
-  stage: test
-  image: php:7.4
-  script:
-    - php test.php
-    - ls -al
-    - cat log.txt
-
 
 functional testing:
   stage: test

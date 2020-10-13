@@ -8,6 +8,7 @@
             <directory suffix=".php">src</directory>
         </include>
         <exclude>
+            <file>src/autoload.php</file>
             <file>src/starter.php</file>
             <directory suffix=".php">src/Exception</directory>
             <directory suffix="MySql.php">src/DataManagement</directory>
