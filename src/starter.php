@@ -1,10 +1,10 @@
 <?php
 
-use RRComparator\Manager\ComparisonManager;
+use RRComparator\Manager\ApplicationManager;
 
 include 'autoload.php';
 
-$manager = new ComparisonManager(
+$manager = new ApplicationManager(
 	'../config/application.ini',
 	'../config/scripts.ini',
 	'../config/db.ini'

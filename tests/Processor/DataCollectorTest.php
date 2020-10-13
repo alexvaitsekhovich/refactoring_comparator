@@ -4,7 +4,7 @@ namespace RRComparator\Processor;
 
 use PHPUnit\Framework\TestCase;
 use RRComparator\Configuration\Config;
-use RRComparator\Datasource\DataSource;
+use RRComparator\DataManagement\DataSource;
 use RRComparator\Exception\InvalidMethodCallException;
 use function PHPUnit\Framework\assertSame;
 
@@ -18,7 +18,7 @@ class DataCollectorTest extends TestCase
 
 	protected function setUp(): void
 	{
-		$this->mockConfig = $this->createMock(Config::class);
+		$this->mockConfig = $this->createStub(Config::class);
 		$this->mockDataSource = $this->createMock(DataSource::class);
 	}
 

@@ -3,7 +3,7 @@
 namespace RRComparator\Processor;
 
 use RRComparator\Configuration\Config;
-use RRComparator\Datasource\DataSource;
+use RRComparator\DataManagement\DataSource;
 use RRComparator\Exception\InvalidMethodCallException;
 
 /**

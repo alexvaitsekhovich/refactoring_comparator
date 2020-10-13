@@ -16,7 +16,7 @@ unit tests:
     - chmod +x /usr/local/bin/phpunit
     - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
     - composer install
-    - phpunit --configuration phpunit.xml
+    - phpunit --configuration phpunit.xml --testdox --colors=always
 
 
 functional testing:

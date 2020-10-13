@@ -75,8 +75,8 @@ class ConfigTest extends TestCase
 	public function subconfigDataProvider()
 	{
 		return [
-			['sub1', ['!', 'A', '1']],
-			['sub2', ['A' => 'xyz', 'B' => 'xyz', 'C' => 'abc']],
+			'Subconfig1' => ['sub1', ['!', 'A', '1']],
+			'Subconfig2' => ['sub2', ['A' => 'xyz', 'B' => 'xyz', 'C' => 'abc']],
 		];
 	}
 }

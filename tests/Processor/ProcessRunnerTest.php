@@ -4,10 +4,7 @@ namespace RRComparator\Processor;
 
 
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
-use RRComparator\Configuration\Config;
-use RRComparator\Datasource\DataFixture;
-use RRComparator\Datasource\DataToolsContainer;
+use RRComparator\DataManagement\DataFixture;
 use RRComparator\Exception\EmptyResultException;
 
 /**
@@ -15,60 +12,48 @@ use RRComparator\Exception\EmptyResultException;
  */
 class ProcessRunnerTest extends TestCase
 {
-	private $mockDataToolsContainer;
-	private $mockConfig;
+	private $mockScriptRunner;
+	private $mockDataCollector;
 	private $mockDataFixture;
-	private $script = '../../tests/test_data/testScript.php';
 
 	protected function setUp(): void
 	{
-		$this->mockDataToolsContainer = $this->createMock(DataToolsContainer::class);
-		$this->mockConfig = $this->createMock(Config::class);
+		$this->mockScriptRunner = $this->createMock(ScriptRunner::class);
+		$this->mockDataCollector = $this->createMock(DataCollector::class);
 		$this->mockDataFixture = $this->createMock(DataFixture::class);
 	}
 
-
-	public function testRunMethodsOnConstruct()
+	public function testProcess()
 	{
-		$this->mockDataToolsContainer->expects($this->once())->method('getDataSource');
-		$this->mockDataToolsContainer->expects($this->once())->method('getDataFixture');
+		$this->mockScriptRunner->expects($this->once())->method('run');
+		$this->mockDataCollector->expects($this->once())->method('gatherData');
+		$this->mockDataCollector->expects($this->once())->method('getData');
+		$this->mockDataFixture->expects($this->once())->method('populateData');
 
-		new ProcessRunner($this->mockDataToolsContainer, $this->mockConfig, $this->script);
+		(new ProcessRunner($this->mockScriptRunner,
+			$this->mockDataCollector, $this->mockDataFixture))->process();
 	}
 
 	public function testGetResultingData()
 	{
-		$this->mockDataToolsContainer->method('getDataFixture')->willReturn($this->mockDataFixture);
+		$data = ['A' => 'Test'];
 
-		$this->mockDataFixture->expects($this->once())->method('populateData');
-		$this->mockConfig->expects($this->exactly(2))->method('getSubConfig');
+		$this->mockDataCollector->method('getData')->willReturn($data);
 
-		$processRunner = new ProcessRunner($this->mockDataToolsContainer, $this->mockConfig, $this->script);
+		$processRunner = new ProcessRunner($this->mockScriptRunner, $this->mockDataCollector, $this->mockDataFixture);
 		$processRunner->process();
-	}
-
-	public function testNoData(){
-		$processRunner = new ProcessRunner($this->mockDataToolsContainer, $this->mockConfig, $this->script);
-
-		$reflectionClass = new ReflectionClass('RRComparator\Processor\ProcessRunner');
-		$reflectionProperty = $reflectionClass->getProperty('resultData');
-		$reflectionProperty->setAccessible(true);
-		$reflectionProperty->setValue($processRunner, []);
-
-		$this->expectException(EmptyResultException::class);
-		$processRunner->getResultingData();
-	}
-
-	public function testData(){
-		$processRunner = new ProcessRunner($this->mockDataToolsContainer, $this->mockConfig, $this->script);
-		$data = ['A', 'B'];
-
-		$reflectionClass = new ReflectionClass('RRComparator\Processor\ProcessRunner');
-		$reflectionProperty = $reflectionClass->getProperty('resultData');
-		$reflectionProperty->setAccessible(true);
-		$reflectionProperty->setValue($processRunner, $data);
 
 		$this->assertSame($data, $processRunner->getResultingData());
 	}
 
+	public function testNoData()
+	{
+		$this->mockDataCollector->method('getData')->willReturn([]);
+
+		$processRunner = new ProcessRunner($this->mockScriptRunner, $this->mockDataCollector, $this->mockDataFixture);
+		$processRunner->process();
+
+		$this->expectException(EmptyResultException::class);
+		$processRunner->getResultingData();
+	}
 }

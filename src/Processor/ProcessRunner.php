@@ -2,8 +2,7 @@
 
 namespace RRComparator\Processor;
 
-use RRComparator\Configuration\Config;
-use RRComparator\Datasource\DataToolsContainer;
+use RRComparator\DataManagement\DataFixture;
 use RRComparator\Exception\EmptyResultException;
 
 /**
@@ -11,38 +10,34 @@ use RRComparator\Exception\EmptyResultException;
  */
 class ProcessRunner
 {
-	private $dataSource;
 	private $dataFixture;
-	private $config;
-	private $script;
+	private $scriptRunner;
+	private $dataCollector;
 
 	private $resultData;
 
-	public function __construct(DataToolsContainer $dataToolsContainer, Config $config, string $script)
+	public function __construct(ScriptRunner $scriptRunner, DataCollector $dataCollector, DataFixture $dataFixture)
 	{
-		$this->dataSource = $dataToolsContainer->getDataSource();
-		$this->dataFixture = $dataToolsContainer->getDataFixture();
-		$this->config = $config;
-		$this->script = __DIR__ . '/' . $script;
+		$this->scriptRunner = $scriptRunner;
+		$this->dataCollector = $dataCollector;
+		$this->dataFixture = $dataFixture;
 	}
 
 	public function process()
 	{
 		$this->dataFixture->populateData();
 
-		$scriptRunner = new ScriptRunner($this->config->getSubConfig('scriptArgs'), $this->script);
-		$scriptRunner->run();
+		$this->scriptRunner->run();
 
-		$dataContainer = new DataCollector($this->dataSource, $this->config->getSubConfig('db'));
-		$dataContainer->gatherData();
+		$this->dataCollector->gatherData();
 
-		$this->resultData = $dataContainer->getData();
+		$this->resultData = $this->dataCollector->getData();
 	}
 
 	public function getResultingData(): array
 	{
 		if (empty($this->resultData)) {
-			throw new EmptyResultException("No data was retrieved after executing the script: " . $this->script);
+			throw new EmptyResultException("No data was retrieved after executing the script");
 		}
 		return $this->resultData;
 	}

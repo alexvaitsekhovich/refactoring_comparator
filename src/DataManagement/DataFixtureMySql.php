@@ -1,10 +1,11 @@
 <?php
 
-namespace RRComparator\Datasource;
+namespace RRComparator\DataManagement;
+
+use RRComparator\Logger\ConsoleLogger;
 
 /**
  * DataFixture implementation for MySQL
- * @codeCoverageIgnore
  */
 class DataFixtureMySql extends DataFixture
 {
@@ -12,14 +13,21 @@ class DataFixtureMySql extends DataFixture
 	{
 		$resetScriptsDir = $this->config->dbInitDir;
 
+		ConsoleLogger::log("DataFixtureMySql: found init script {$resetScriptsDir}");
+
 		foreach (scandir($resetScriptsDir) as $f) {
 			$sqlFile = $resetScriptsDir . DIRECTORY_SEPARATOR . $f;
+
+			ConsoleLogger::log("DataFixtureMySql: found file {$sqlFile}");
 
 			if (!$this->isFileAndExpectedType($sqlFile, 'sql')) {
 				continue;
 			}
 
 			$query = file_get_contents($sqlFile);
+
+			ConsoleLogger::log("DataFixtureMySql: found queries in file {$sqlFile}");
+
 			$sqlCommands = explode(';', $query);
 
 			foreach ($sqlCommands as $sqlCommand) {
@@ -27,6 +35,8 @@ class DataFixtureMySql extends DataFixture
 				if (strlen($sqlCommand) == 0) {
 					continue;
 				}
+
+				ConsoleLogger::log("DataFixtureMySql: executing query {$sqlCommand}");
 
 				$this->dataConnection->executeRawQuery($sqlCommand);
 			}
@@ -37,6 +47,8 @@ class DataFixtureMySql extends DataFixture
 		foreach (scandir($datasetDir) as $ds) {
 			$datasetFile = $datasetDir . DIRECTORY_SEPARATOR . $ds;
 
+			ConsoleLogger::log("DataFixtureMySql: getting dataset from file {$datasetFile}");
+
 			if (!$this->isFileAndExpectedType($datasetFile, 'csv')) {
 				continue;
 			}
@@ -44,6 +56,8 @@ class DataFixtureMySql extends DataFixture
 			$tableName = pathinfo($datasetFile)['filename'];
 
 			$datasetCommand = "LOAD DATA INFILE '" . realpath($datasetFile) . "' INTO TABLE `" . $tableName . "` FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '\"' LINES TERMINATED BY '\\n' IGNORE 1 LINES;";
+
+			ConsoleLogger::log("DataFixtureMySql: executing query {$datasetCommand}");
 
 			$this->dataConnection->executeRawQuery($datasetCommand);
 		}

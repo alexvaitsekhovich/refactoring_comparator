@@ -1,12 +1,11 @@
 <?php
 
-namespace RRComparator\Datasource;
+namespace RRComparator\DataManagement;
 
 use RRComparator\Configuration\Config;
 
 /**
  * Based on the configuration, create the data source and populate it with data
- * @codeCoverageIgnore
  */
 abstract class DataFixture
 {

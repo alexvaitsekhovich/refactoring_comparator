@@ -4,6 +4,7 @@ namespace RRComparator\Configuration;
 
 use RRComparator\Exception\InvalidConfigurationException;
 use RRComparator\Exception\InvalidMethodCallException;
+use RRComparator\Logger\ConsoleLogger;
 
 /**
  * Configuration from the config file or data from only one section
@@ -22,6 +23,8 @@ class Config
 			throw new InvalidConfigurationException("Config file not found: {$configFile}");
 		}
 
+		ConsoleLogger::log("Creating config from file '{$configFile}''");
+
 		$config = new Config();
 		$config->configData = parse_ini_file($configFile, true);
 		return $config;
@@ -30,6 +33,8 @@ class Config
 	public function getSubConfig(string $section): Config
 	{
 		$subConfig = new Config();
+
+		ConsoleLogger::log("Getting subconfig '{$section}'" );
 
 		try {
 			$subConfig->configData = $this->$section;

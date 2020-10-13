@@ -1,9 +1,10 @@
 <?php
 
 
-namespace RRComparator\Datasource;
+namespace RRComparator\DataManagement;
 
 use Error;
+use Exception;
 use RRComparator\Configuration\Config;
 use RRComparator\Exception\InvalidConfigurationException;
 
@@ -23,7 +24,7 @@ class DataToolsContainer
 			$this->dataSource = new $dataSourceClass($dbConfig);
 			$this->dataFixture = new $dataFixtureClass($this->dataSource, $fixturesConfig);
 		}
-		catch (Error $e) {
+		catch (Exception $e) {
 			throw new InvalidConfigurationException($e->getMessage());
 		}
 	}

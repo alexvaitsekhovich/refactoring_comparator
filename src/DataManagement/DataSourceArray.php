@@ -1,11 +1,11 @@
 <?php
 
-namespace RRComparator\Datasource;
+namespace RRComparator\DataManagement;
 
 /**
- * @codeCoverageIgnore
+ * DataSource implementation with array
  */
-class DataSourceArray implements DataSource
+class DataSourceArray extends DataSource
 {
 	private $data = [
 		[

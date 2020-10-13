@@ -1,9 +1,9 @@
 <?php
 
-namespace RRComparator\Datasource;
+namespace RRComparator\DataManagement;
 
 /**
- * @codeCoverageIgnore
+ * DataFixture implementation
  */
 class DataFixtureArray extends DataFixture
 {

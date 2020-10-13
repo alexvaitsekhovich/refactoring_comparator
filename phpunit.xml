@@ -9,6 +9,8 @@
         </include>
         <exclude>
             <file>src/starter.php</file>
+            <directory suffix=".php">src/Exception</directory>
+            <directory suffix="MySql.php">src/DataManagement</directory>
         </exclude>
     </coverage>
     <testsuites>

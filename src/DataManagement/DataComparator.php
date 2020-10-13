@@ -3,6 +3,7 @@
 namespace RRComparator\DataManagement;
 
 use RRComparator\Exception\DataComparisonException;
+use RRComparator\Logger\ConsoleLogger;
 
 /**
  * Compare the database data resulting from legacy and from refactored scripts. If mismatch was found,
@@ -26,12 +27,17 @@ class DataComparator
 	{
 		$mismatchResult = [];
 
+		ConsoleLogger::log(sprintf("Comparing data with data count %d vs %d",
+			count($this->legacyData), count($this->refactoredData)));
+
 		if (count($this->legacyData) != count($this->refactoredData)) {
 			throw new DataComparisonException(sprintf('Tables count mismatch: %d elements in legacy, %d elements in refactored',
 				count($this->legacyData), count($this->refactoredData)));
 		}
 
 		foreach ($this->legacyData as $table => $legacyRows) {
+			ConsoleLogger::log("Comparing rows of table '{$table}'");
+
 			$refactoredRows = $this->refactoredData[$table];
 
 			if (count($legacyRows) != count($refactoredRows)) {
@@ -40,6 +46,7 @@ class DataComparator
 			}
 
 			if ($legacyRows !== $refactoredRows) {
+				ConsoleLogger::log("Found mismatch in table '{$table}'");
 				if ($limit == 0) {
 					$mismatchResult[$table] = [
 						'expected' => $legacyRows,
